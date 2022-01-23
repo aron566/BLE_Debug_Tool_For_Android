@@ -102,7 +102,7 @@
         <widget class="QListWidget" name="MAIN_UUID_listWidget"/>
        </item>
        <item row="1" column="1">
-        <widget class="QListWidget" name="listWidget"/>
+        <widget class="QListWidget" name="CHARACTERISTIC_UUID_listWidget"/>
        </item>
       </layout>
      </widget>

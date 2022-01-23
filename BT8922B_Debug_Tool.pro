@@ -1,5 +1,5 @@
 QT       += core gui
-QT       += bluetooth
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -15,6 +15,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+# 蓝牙模块
+include(Bluetooth_Opt/Bluetooth_Opt.pri)
+
 SOURCES += \
     main.cpp \
     mainwindow.cpp
@@ -29,3 +32,14 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+# 资源文件
+RESOURCES += \
+    resource/BT8922B_Debug_Tool.qrc \
+    resource/qdarkstyle/dark/style.qrc
+
+# 图标logo
+RC_ICONS = resource/icons/exe_iconx.ico
+
+# The following line compiles on Release but not on Debug, so this workaroung is used:
+#RC_FILE = resource/BT8922B_Debug_Tool.rc

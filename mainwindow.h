@@ -2,13 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QBluetoothDeviceDiscoveryAgent>
-#include <QBluetoothSocket>
-#include <QBluetoothServer>
-#include <QLowEnergyCharacteristic>
-#include <QLowEnergyController>
-#include <QLowEnergyService>
 #include <QList>
+#include "Bluetooth_Opt/bluetooth_opt.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,60 +19,30 @@ public:
 
 public:
     /**
-     * @brief Show_Service_UUID_Info
-     * @param UUID_List
-     */
-    void Show_Service_UUID_Info(QList<QBluetoothUuid> &Uuid_List);
-
-    /**
      * @brief SendMsg
      * @param text
      */
     void SendMsg(QString text);
-
-private:
-    void Search_Characteristic(QLowEnergyService *B_Service);
-Q_SIGNALS:
-    /**
-     * @brief signal_Connect_B_Device_Info
-     * @param info
-     */
-    void signal_Connect_B_Device_Info(const QBluetoothDeviceInfo &info);
 
 private slots:
     /**
      * @brief slot_addBlueToothDevicesToList
      * @param info
      */
-    void slot_AddBlueToothDevicesToList(const QBluetoothDeviceInfo &info);
-
-    /**
-     * @brief slot_scanFinished
-     */
-    void slot_ScanFinished();
-
-    /**
-     * @brief slot_ScanCanceled
-     */
-    void slot_ScanCanceled();
-
-    /**
-     * @brief slot_Create_B_Controller_Obj
-     * @param info
-     */
-    void slot_Create_B_Controller_Obj(const QBluetoothDeviceInfo &info);
+    void slot_AddBlueToothDevicesToList(const QString B_Device);
 
     /**
      * @brief slot_stateChanged
      * @param state
      */
-    void slot_stateChanged(QLowEnergyController::ControllerState state);
+    void slot_stateChanged(QLowEnergyController::ControllerState state, \
+                           QString Str);
 
     /**
-     * @brief slot_B_error_occurred
-     * @param newError
+     * @brief slot_Find_New_MainUuid
+     * @param Uuid
      */
-    void slot_B_error_occurred(QLowEnergyController::Error newError);
+    void slot_Find_New_MainUuid(const QString &Uuid);
 
     /**
      * @brief on_CONNECT_pushButton_clicked
@@ -98,19 +63,7 @@ private:
     Ui::MainWindow *ui;
 
 private:
-    /* 对象搜索 */
-    QBluetoothDeviceDiscoveryAgent *DiscoveryAgent_Obj = nullptr;
-
-    /* 通讯连接 */
-    QLowEnergyController *B_Controller_Obj = nullptr;
-
-    /* 通讯服务 */
-    QList<QLowEnergyService *> B_Service_Obj_List;
-private:
-  /* Bluetooth Device */
-  QList<QBluetoothDeviceInfo> B_Device_List;
-
-  /* UUID */
-  QList<QBluetoothUuid> B_Service_List;  
+  /* 蓝牙对象 */
+  Bluetooth_Opt *Bluetooth_Obj = nullptr;
 };
 #endif // MAINWINDOW_H
